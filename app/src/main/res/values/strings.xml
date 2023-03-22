@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Fundatec - Heroes Ti21</string>
+    <string name="como_seu_nome">Como é seu nome ?</string>
+    <string name="seu_nome">Seu nome é %s</string>
+</resources>
