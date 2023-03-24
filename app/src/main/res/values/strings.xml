@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Fundatec - Heroes Ti21</string>
     <string name="como_seu_nome">Como é seu nome ?</string>
-    <string name="seu_nome">Seu nome é %s</string>
+    <string name="seu_nome">Ola %s, seja bem vindo ao meu primeiro projeto Android!</string>
+    <string name="insira_nome">Insira seu nome</string>
+    <string name="ok">Ok</string>
+    <string name="limpar">Limpar</string>
 </resources>
