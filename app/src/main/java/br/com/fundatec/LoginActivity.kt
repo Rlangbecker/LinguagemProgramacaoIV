@@ -6,30 +6,34 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        supportActionBar?.hide()
+
         val viewModel = MainViewModel()
-        val intent = Intent(this, LogadoActivity::class.java)
+        val intent_logado = Intent(this, LogadoActivity::class.java)
+        val intent_cadastro = Intent(this, CadastroActivity::class.java)
 
 
         val et_user = findViewById<EditText>(R.id.et_user)
         val et_senha = findViewById<EditText>(R.id.et_senha)
         val bt_login = findViewById<Button>(R.id.bt_login)
-        val bt_cadastro = findViewById<Button>(R.id.bt_cadastro)
+        val bt_cadastro = findViewById<TextView>(R.id.bt_cadastro)
 
 
         bt_login.setOnClickListener {
           val verificador = viewModel.validateName(et_user.text,et_senha.text)
             if(verificador) {
                 Handler(Looper.getMainLooper()).postDelayed({
-                    startActivity(intent)
+                    startActivity(intent_logado)
                     finish()
                 }, 1000)
             }
@@ -37,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         bt_cadastro.setOnClickListener {
             Handler(Looper.getMainLooper()).postDelayed({
-                startActivity(intent)
+                startActivity(intent_cadastro)
                 finish()
             }, 1000)
         }

@@ -5,7 +5,7 @@
     <string name="insira_user">Insira seu usuario</string>
     <string name="insira_senha">Insira sua senha</string>
     <string name="logar">Logar</string>
-    <string name="cadastro">Novo Cadastro</string>
+    <string name="cadastro">Novo por aqui ?</string>
     <string name="tela_cadastro">Tela de Cadastro</string>
     <string name="tela_logado">Tela Logado</string>
 </resources>
