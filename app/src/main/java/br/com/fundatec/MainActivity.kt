@@ -1,54 +1,52 @@
 package br.com.fundatec
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
+import android.os.Handler
+import android.os.Looper
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        val etName = findViewById<EditText>(R.id.editview)
-        val btOk = findViewById<Button>(R.id.button_ok)
-        val tvHello = findViewById<TextView>(R.id.tview_nome)
-        val btClear = findViewById<Button>(R.id.button_limpar)
+        val viewModel = MainViewModel()
+        val intent = Intent(this, LogadoActivity::class.java)
 
 
+        val et_user = findViewById<EditText>(R.id.et_user)
+        val et_senha = findViewById<EditText>(R.id.et_senha)
+        val bt_login = findViewById<Button>(R.id.bt_login)
+        val bt_cadastro = findViewById<Button>(R.id.bt_cadastro)
 
-        btOk.setOnClickListener {
-            tvHello.text = getString(R.string.seu_nome, etName.text)
-            tvHello.visibility = View.VISIBLE
+
+        bt_login.setOnClickListener {
+          val verificador = viewModel.validateName(et_user.text,et_senha.text)
+            if(verificador) {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    startActivity(intent)
+                    finish()
+                }, 1000)
+            }
         }
 
-        btClear.setOnClickListener{
-            tvHello.visibility = View.GONE
-            etName.text.clear()
+        bt_cadastro.setOnClickListener {
+            Handler(Looper.getMainLooper()).postDelayed({
+                startActivity(intent)
+                finish()
+            }, 1000)
+        }
+
+
+        viewModel.showToast.observe(this) {
+            Toast.makeText(this, "Preencha os campos", Toast.LENGTH_LONG).show()
         }
     }
+
+
 }
-
-//        val car = Car(
-//            2,
-//            4,
-//            "V8"
-//        )
-//
-
-
-//data class Car(
-//    val rodas:Int,
-//    val portas:Int,
-//    val motor:String
-//)
-//
-//sealed class Result {
-//    data class Success(val parafuso : String) : Result()
-//    object Loading : Result()
-//    object Error : Result()
-//}
