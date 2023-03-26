@@ -32,18 +32,15 @@ class LoginActivity : AppCompatActivity() {
         bt_login.setOnClickListener {
           val verificador = viewModel.validateName(et_user.text,et_senha.text)
             if(verificador) {
-                Handler(Looper.getMainLooper()).postDelayed({
                     startActivity(intent_logado)
                     finish()
-                }, 1000)
+
             }
         }
 
         bt_cadastro.setOnClickListener {
-            Handler(Looper.getMainLooper()).postDelayed({
                 startActivity(intent_cadastro)
                 finish()
-            }, 1000)
         }
 
 

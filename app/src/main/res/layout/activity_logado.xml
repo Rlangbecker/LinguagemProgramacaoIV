@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:orientation="vertical"
     android:gravity="center"
     tools:context=".LogadoActivity">
 
@@ -17,9 +18,27 @@
         android:text="@string/tela_logado"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <ImageView
+        android:id="@+id/ic_back2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/ic_back" />
+
+    <TextView
+        android:id="@+id/voltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clique no ícone para voltar"
+        android:textColor="@color/red"
+        android:textSize="15sp"
+        android:textStyle="bold"
         app:layout_constraintVertical_chainStyle="packed" />
 
 
