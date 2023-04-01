@@ -7,12 +7,14 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val viewModel = MainViewModel()
 
         val etName = findViewById<EditText>(R.id.editview)
         val btOk = findViewById<Button>(R.id.button_ok)
@@ -22,33 +24,25 @@ class MainActivity : AppCompatActivity() {
 
 
         btOk.setOnClickListener {
-            tvHello.text = getString(R.string.seu_nome, etName.text)
-            tvHello.visibility = View.VISIBLE
+            viewModel.validateName(etName.text)
         }
 
-        btClear.setOnClickListener{
-            tvHello.visibility = View.GONE
-            etName.text.clear()
+        btClear.setOnClickListener {
+            viewModel.clear()
+        }
+
+        viewModel.publicName.observe(this) { name ->
+            tvHello.text = getString(R.string.seu_nome, name)
+        }
+
+        viewModel.visibility.observe(this) { visibility ->
+            tvHello.visibility = visibility
+            tvHello.visible()
+        }
+
+        viewModel.showToast.observe(this) {
+            Toast.makeText(this, "Preencha os campos!!!",
+                    Toast.LENGTH_LONG).show()
         }
     }
 }
-
-//        val car = Car(
-//            2,
-//            4,
-//            "V8"
-//        )
-//
-
-
-//data class Car(
-//    val rodas:Int,
-//    val portas:Int,
-//    val motor:String
-//)
-//
-//sealed class Result {
-//    data class Success(val parafuso : String) : Result()
-//    object Loading : Result()
-//    object Error : Result()
-//}
