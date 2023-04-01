@@ -25,14 +25,13 @@ class MainViewModel : ViewModel() {
 
     val startnavigate : Boolean = false
 
-    fun validateName(text: Editable? , text2: Editable?): Boolean {
+    fun validateName(text: Editable? , text2: Editable?) {
         val newText = text.toString()
         val newText2 = text2.toString()
         if(!newText.isNullOrBlank() && !newText2.isNullOrBlank()){
-            return true
+            helloVisibility.value = View.VISIBLE
         } else {
             toast.value = Unit
-            return false
         }
     }
 

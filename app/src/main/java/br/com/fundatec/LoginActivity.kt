@@ -30,12 +30,11 @@ class LoginActivity : AppCompatActivity() {
 
 
         bt_login.setOnClickListener {
-          val verificador = viewModel.validateName(et_user.text,et_senha.text)
-            if(verificador) {
-                    startActivity(intent_logado)
-                    finish()
-
-            }
+         viewModel.validateName(et_user.text,et_senha.text)
+        }
+        viewModel.visibility.observe(this){
+            startActivity(intent_logado)
+            finish()
         }
 
         bt_cadastro.setOnClickListener {
