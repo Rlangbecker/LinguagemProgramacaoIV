@@ -1,7 +1,9 @@
 package br.com.fundatec
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Contacts.Extensions
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -37,12 +39,12 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.visibility.observe(this) { visibility ->
             tvHello.visibility = visibility
-            tvHello.visible()
+//            tvHello.visible()
         }
 
         viewModel.showToast.observe(this) {
-            Toast.makeText(this, "Preencha os campos!!!",
-                    Toast.LENGTH_LONG).show()
+        this.
         }
     }
+
 }
