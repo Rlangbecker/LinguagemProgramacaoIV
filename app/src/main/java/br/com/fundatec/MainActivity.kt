@@ -1,15 +1,17 @@
 package br.com.fundatec
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Contacts.Extensions
+import android.provider.Contacts.People.Extensions
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.components.showSnack
+import com.example.components.showToast
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         val btOk = findViewById<Button>(R.id.button_ok)
         val tvHello = findViewById<TextView>(R.id.tview_nome)
         val btClear = findViewById<Button>(R.id.button_limpar)
-
+        val container = findViewById<ConstraintLayout>(R.id.main_container)
 
 
         btOk.setOnClickListener {
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btClear.setOnClickListener {
+            showSnack(container,"limpado tela")
             viewModel.clear()
         }
 
@@ -42,9 +45,11 @@ class MainActivity : AppCompatActivity() {
 //            tvHello.visible()
         }
 
-        viewModel.showToast.observe(this) {
-        this.
-        }
-    }
 
+        viewModel.showToast.observe(this) {
+            showToast("Preencha os campos!!!")
+        }
+
+
+    }
 }
