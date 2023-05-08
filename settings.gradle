@@ -12,5 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Fundatec - Heroes Ti21"
+rootProject.name = "Fundatec Heroes TI21"
 include ':app'
+include ':core'
