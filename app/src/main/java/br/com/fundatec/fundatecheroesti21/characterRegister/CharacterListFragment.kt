@@ -20,9 +20,7 @@ class CharacterListFragment : Fragment() {
 
     private val adapter by lazy { CharacterListAdapter() }
     private val list = listOf(
-        CharacterRegisterModel("Mestre Kame"),
-        CharacterRegisterModel("Goku"),
-        CharacterRegisterModel("Vegeta")
+        CharacterRegisterModel("Mestre Kame")
     )
 
     override fun onCreateView(

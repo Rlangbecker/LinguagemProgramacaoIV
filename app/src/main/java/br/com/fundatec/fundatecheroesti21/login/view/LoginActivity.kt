@@ -8,6 +8,7 @@ import br.com.fundatec.core.hide
 import br.com.fundatec.core.show
 import br.com.fundatec.fundatecheroesti21.home.view.HomeActivity
 import br.com.fundatec.fundatecheroesti21.R
+import br.com.fundatec.fundatecheroesti21.database.FHDatabase
 import br.com.fundatec.fundatecheroesti21.databinding.ActivityLoginBinding
 import br.com.fundatec.fundatecheroesti21.login.presentation.LoginViewModel
 import br.com.fundatec.fundatecheroesti21.login.presentation.model.LoginViewState
@@ -16,8 +17,11 @@ import com.google.android.material.snackbar.Snackbar
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-
     private val viewModel: LoginViewModel by viewModels()
+
+    private val database: FHDatabase by lazy {
+        FHDatabase.getInstance()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,8 +82,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showProfile(){
         binding.pbLoading.hide()
+
         val intent = Intent(this@LoginActivity, ProfileActivity::class.java)
         startActivity(intent)
-        finish()
     }
 }

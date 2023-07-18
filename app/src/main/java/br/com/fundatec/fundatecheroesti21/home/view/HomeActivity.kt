@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.com.fundatec.fundatecheroesti21.character.view.CharcaterActivity
 import br.com.fundatec.fundatecheroesti21.databinding.ActivityHomeBinding
+import br.com.fundatec.fundatecheroesti21.login.view.LoginActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -21,11 +22,14 @@ class HomeActivity : AppCompatActivity() {
 
         binding.homeTabLayout.setupWithViewPager(binding.homeViewPager)
 
-        binding.btNewCharacter.setOnClickListener {
-            val intent = Intent(this@HomeActivity, CharcaterActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+//        onFinish()
     }
+
+//    private fun onFinish() {
+//        val intent = Intent(this@HomeActivity, LoginActivity::class.java)
+//        startActivity(intent)
+//        finish()
+//    }
+
 }
 
