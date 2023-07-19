@@ -9,6 +9,7 @@ import br.com.fundatec.fundatecheroesti21.network.RetrofitNetworkClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
+import java.util.*
 
 class LoginRepository {
     private val database: FHDatabase by lazy {
@@ -33,6 +34,14 @@ class LoginRepository {
         }
     }
 
+    suspend fun verificarSeUsuarioExiste(usuarioExiste:  Boolean): Boolean {
+        val user = database.userDao().getUser()
+        if (user == null) {
+            return !usuarioExiste
+        }
+        return true
+    }
+
     private suspend fun saveUserLogin(user: Response<LoginResponse>) {
         return withContext(Dispatchers.IO) {
             if (user.isSuccessful) {
@@ -50,11 +59,12 @@ class LoginRepository {
             name = name,
             email = email,
             password = password,
+            lastLoginTime = Date()
         )
     }
 
 
-    suspend fun createUser(name: String, email: String, password: String) :Boolean {
+    suspend fun createUser(name: String, email: String, password: String): Boolean {
         return withContext(Dispatchers.IO) {
             try {
                 val response = client.postUser(UserRequest(name, email, password))
@@ -65,6 +75,23 @@ class LoginRepository {
             }
         }
 
+    }
+
+    private suspend fun cleanReuse(user: UserEntity, ultrapassouTempo: Boolean): Boolean {
+        database.userDao().deletarCache()
+        return !ultrapassouTempo;
+    }
+
+    suspend fun validateCache(ultrapassouTempo: Boolean) {
+        val user = database.userDao().getUser().first()
+        val dataCache = database.userDao().getCache().time
+        val dataHoje = Date().time
+        val diff = dataHoje - dataCache
+        val seconds = diff / 1000
+        val minutes = seconds / 60
+        if (minutes > 10) {
+            cleanReuse(user, ultrapassouTempo)
+        }
     }
 }
 

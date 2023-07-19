@@ -3,6 +3,7 @@ package br.com.fundatec.fundatecheroesti21.login.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity(tableName = "userTable")
 data class UserEntity(
@@ -11,5 +12,5 @@ data class UserEntity(
     val name: String,
     val email: String,
     val password: String,
-    val teste: String? = null
+    val lastLoginTime: Date
 )
