@@ -22,14 +22,18 @@ class HomeActivity : AppCompatActivity() {
 
         binding.homeTabLayout.setupWithViewPager(binding.homeViewPager)
 
-//        onFinish()
+        navigateNewCharacter()
+
     }
 
-//    private fun onFinish() {
-//        val intent = Intent(this@HomeActivity, LoginActivity::class.java)
-//        startActivity(intent)
-//        finish()
-//    }
+
+    private fun navigateNewCharacter() {
+        binding.btNewCharacter.setOnClickListener {
+
+            val intent = Intent(this@HomeActivity, CharcaterActivity::class.java)
+            startActivity(intent)
+        }
+    }
 
 }
 

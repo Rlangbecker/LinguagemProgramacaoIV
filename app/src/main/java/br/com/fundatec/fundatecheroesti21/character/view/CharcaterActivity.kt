@@ -26,14 +26,7 @@ class CharcaterActivity : AppCompatActivity() {
 
         initializeObserver()
 
-        binding.floatingButton.setOnClickListener {
-            viewModel.validateInputs(
-                name = binding.nameHero.text.toString(),
-                description = binding.description.text.toString(),
-                age = binding.age.text.toString(),
-                birth_date = binding.date.text.toString()
-            )
-        }
+        validateData()
     }
 
     private fun initializeObserver() {
@@ -70,8 +63,6 @@ class CharcaterActivity : AppCompatActivity() {
 
     private fun showHome() {
         binding.pbLoading.hide()
-        val intent = Intent(this@CharcaterActivity, HomeActivity::class.java)
-        startActivity(intent)
         finish()
     }
 
@@ -84,4 +75,16 @@ class CharcaterActivity : AppCompatActivity() {
         binding.pbLoading.hide()
         binding.description.error = getString(R.string.register_description_error_message)
     }
+
+    private fun validateData(){
+        binding.floatingButton.setOnClickListener {
+            viewModel.validateInputs(
+                name = binding.nameHero.text.toString(),
+                description = binding.description.text.toString(),
+                age = binding.age.text.toString(),
+                birth_date = binding.date.text.toString()
+            )
+        }
+    }
+
 }

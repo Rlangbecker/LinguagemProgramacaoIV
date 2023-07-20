@@ -1,17 +1,14 @@
 package br.com.fundatec.fundatecheroesti21.profile.view
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import br.com.fundatec.core.hide
 import br.com.fundatec.core.show
 import br.com.fundatec.fundatecheroesti21.R
 import br.com.fundatec.fundatecheroesti21.databinding.ActivityProfileBinding
-import br.com.fundatec.fundatecheroesti21.home.view.HomeActivity
-import br.com.fundatec.fundatecheroesti21.login.view.LoginActivity
 import br.com.fundatec.fundatecheroesti21.profile.presentation.ProfileViewModel
 import br.com.fundatec.fundatecheroesti21.profile.presentation.model.ProfileViewState
 import com.google.android.material.snackbar.Snackbar
@@ -74,9 +71,9 @@ class ProfileActivity : AppCompatActivity() {
         Snackbar.make(binding.root, R.string.login_error_message, Snackbar.LENGTH_LONG).show()
     }
 
-    private fun showSuccesCreate(){
+    private fun showSuccesCreate() {
         binding.pbLoading.hide()
-        Snackbar.make(binding.root,R.string.register_user_succes,Snackbar.LENGTH_LONG).show()
+        Snackbar.make(binding.root, R.string.register_user_succes, Snackbar.LENGTH_LONG).show()
         Handler(Looper.getMainLooper()).postDelayed({
             finish()
         }, 1000)
