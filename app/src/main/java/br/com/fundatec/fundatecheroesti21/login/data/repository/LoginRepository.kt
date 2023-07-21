@@ -34,7 +34,7 @@ class LoginRepository {
         }
     }
 
-    suspend fun verificarSeUsuarioExiste(usuarioExiste:  Boolean): Boolean {
+    suspend fun verificarSeUsuarioExiste(usuarioExiste: Boolean): Boolean {
         val user = database.userDao().getUser()
         if (user == null) {
             return !usuarioExiste
@@ -59,7 +59,6 @@ class LoginRepository {
             name = name,
             email = email,
             password = password,
-            lastLoginTime = Date()
         )
     }
 
@@ -77,20 +76,15 @@ class LoginRepository {
 
     }
 
-    private suspend fun cleanReuse(user: UserEntity, ultrapassouTempo: Boolean): Boolean {
-        database.userDao().deletarCache()
-        return !ultrapassouTempo;
+    suspend fun getCacheDate(): Date? {
+        return withContext(Dispatchers.IO) {
+            database.userDao().getUserDate()
+        }
     }
 
-    suspend fun validateCache(ultrapassouTempo: Boolean) {
-        val user = database.userDao().getUser().first()
-        val dataCache = database.userDao().getCache().time
-        val dataHoje = Date().time
-        val diff = dataHoje - dataCache
-        val seconds = diff / 1000
-        val minutes = seconds / 60
-        if (minutes > 10) {
-            cleanReuse(user, ultrapassouTempo)
+    suspend fun clearCache() {
+        return withContext(Dispatchers.IO) {
+            database.userDao().clearCache()
         }
     }
 }

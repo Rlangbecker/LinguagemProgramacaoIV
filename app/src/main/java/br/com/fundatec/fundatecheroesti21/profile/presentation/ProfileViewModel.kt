@@ -48,7 +48,6 @@ class ProfileViewModel : ViewModel() {
     }
 
     private fun fetchLogin(name: String, email: String, password: String) {
-        viewState.value = ProfileViewState.ShowSuccesCreate
         viewModelScope.launch {
             val isSuccess = useCase.createUser(name = name, email = email, password = password)
             if (isSuccess) {
