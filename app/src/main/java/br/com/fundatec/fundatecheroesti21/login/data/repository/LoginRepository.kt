@@ -34,14 +34,6 @@ class LoginRepository {
         }
     }
 
-    suspend fun verificarSeUsuarioExiste(usuarioExiste: Boolean): Boolean {
-        val user = database.userDao().getUser()
-        if (user == null) {
-            return !usuarioExiste
-        }
-        return true
-    }
-
     private suspend fun saveUserLogin(user: Response<LoginResponse>) {
         return withContext(Dispatchers.IO) {
             if (user.isSuccessful) {

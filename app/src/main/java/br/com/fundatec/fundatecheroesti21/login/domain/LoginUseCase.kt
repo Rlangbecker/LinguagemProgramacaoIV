@@ -10,12 +10,5 @@ class LoginUseCase {
     suspend fun login(email: String, password: String): Boolean {
         return repository.login(email = email, password = password)
     }
-    suspend fun verificarTempoCache(ultrapassouTempo: Boolean): Boolean {
-        repository.validateCache(ultrapassouTempo)
-        return ultrapassouTempo
-    }
-    suspend fun verificarSeUsuarioExiste(usuarioExiste: Boolean): Boolean {
-        repository.verificarSeUsuarioExiste(usuarioExiste);
-        return usuarioExiste
-    }
+
 }
