@@ -8,6 +8,7 @@ import br.com.fundatec.fundatecheroesti21.database.FHDatabase
 import br.com.fundatec.fundatecheroesti21.network.RetrofitNetworkClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.Response
 import java.util.*
 
 class CharacterRepository {
@@ -50,6 +51,18 @@ class CharacterRepository {
         }
     }
 
+    private suspend fun saveCharacter(character: Response<CharacterResponse>){
+        return withContext(Dispatchers.IO){
+            if(character.isSuccessful){
+                character.body()?.run {
+                    database.characterDao().insertCharacter(
+                        characterResponseToEntity()
+                    )
+                }
+            }
+        }
+    }
+
     private fun CharacterResponse.characterResponseToEntity(): CharacterEntity {
         return CharacterEntity(
             name= name,
@@ -60,5 +73,11 @@ class CharacterRepository {
             age= age,
             birthday= birthday
         )
+    }
+
+   suspend fun getCharacters(): List<CharacterEntity> {
+        return withContext(Dispatchers.IO){
+            database.characterDao().getCharacter()
+        }
     }
 }

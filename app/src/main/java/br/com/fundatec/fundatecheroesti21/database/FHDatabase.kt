@@ -11,7 +11,7 @@ import br.com.fundatec.fundatecheroesti21.database.converters.Converters
 import br.com.fundatec.fundatecheroesti21.login.data.local.UserDao
 import br.com.fundatec.fundatecheroesti21.login.data.local.UserEntity
 
-@Database(entities = [UserEntity::class,CharacterEntity::class], version = 3)
+@Database(entities = [UserEntity::class,CharacterEntity::class], version = 4)
 @TypeConverters(Converters::class)
 abstract class FHDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
@@ -23,7 +23,7 @@ abstract class FHDatabase : RoomDatabase() {
                 App.context,
                 FHDatabase::class.java,
                 "fh.database"
-            ).allowMainThreadQueries().build()
+            ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
         }
     }
 }
