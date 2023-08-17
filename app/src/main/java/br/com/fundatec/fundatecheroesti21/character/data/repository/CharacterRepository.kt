@@ -4,6 +4,8 @@ import android.util.Log
 import br.com.fundatec.fundatecheroesti21.character.data.CharacterRequest
 import br.com.fundatec.fundatecheroesti21.character.data.CharacterResponse
 import br.com.fundatec.fundatecheroesti21.character.data.local.CharacterEntity
+import br.com.fundatec.fundatecheroesti21.character.data.local.CharacterModel
+import br.com.fundatec.fundatecheroesti21.characterRegister.domain.CharacterRegisterModel
 import br.com.fundatec.fundatecheroesti21.database.FHDatabase
 import br.com.fundatec.fundatecheroesti21.network.RetrofitNetworkClient
 import kotlinx.coroutines.Dispatchers
@@ -51,33 +53,39 @@ class CharacterRepository {
         }
     }
 
-    private suspend fun saveCharacter(character: Response<CharacterResponse>){
-        return withContext(Dispatchers.IO){
-            if(character.isSuccessful){
-                character.body()?.run {
-                    database.characterDao().insertCharacter(
-                        characterResponseToEntity()
-                    )
-                }
-            }
-        }
-    }
-
     private fun CharacterResponse.characterResponseToEntity(): CharacterEntity {
         return CharacterEntity(
-            name= name,
-            description= description,
-            image= image,
-            universeType= universeType,
-            characterType= characterType,
-            age= age,
-            birthday= birthday
+            name = name,
+            description = description,
+            image = image,
+            universeType = universeType,
+            characterType = characterType,
+            age = age,
+            birthday = birthday
         )
     }
 
-   suspend fun getCharacters(): List<CharacterEntity> {
-        return withContext(Dispatchers.IO){
-            database.characterDao().getCharacter()
+    private fun CharacterResponse.characterResponseToModel(): CharacterModel {
+        return CharacterModel(
+            name = name, image = image
+        )
+    }
+
+    fun List<CharacterResponse>.convertToModelList(): List<CharacterModel> {
+        return map { it.characterResponseToModel() }
+    }
+
+    fun getCharacters(): List<CharacterModel> {
+        val response: Response<List<CharacterResponse>> =
+            client.getCharacter(database.userDao().getId())
+
+        if (response.isSuccessful) {
+            val characterResponseList: List<CharacterResponse> = response.body() ?: emptyList()
+            return characterResponseList.convertToModelList()
+        } else {
+            return emptyList()
         }
     }
+
 }
+

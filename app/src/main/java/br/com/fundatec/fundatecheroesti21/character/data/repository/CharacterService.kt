@@ -1,6 +1,7 @@
 package br.com.fundatec.fundatecheroesti21.character.data.repository
 
 import br.com.fundatec.fundatecheroesti21.character.data.CharacterRequest
+import br.com.fundatec.fundatecheroesti21.character.data.CharacterResponse
 import br.com.fundatec.fundatecheroesti21.login.data.local.UserEntity
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -18,6 +19,6 @@ interface CharacterService {
     ):Response<ResponseBody>
 
     @GET("/api/character/{idUser}")
-    suspend fun getCharacter(@Path("idUser") idUser: Int): Response<ResponseBody>
+    fun getCharacter(@Path("idUser") idUser: Int): Response<List<CharacterResponse>>
 
 }

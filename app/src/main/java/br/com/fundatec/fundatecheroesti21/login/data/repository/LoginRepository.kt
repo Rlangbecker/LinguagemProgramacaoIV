@@ -1,6 +1,7 @@
 package br.com.fundatec.fundatecheroesti21.login.data.repository
 
 import android.util.Log
+import br.com.fundatec.fundatecheroesti21.character.data.repository.CharacterService
 import br.com.fundatec.fundatecheroesti21.database.FHDatabase
 import br.com.fundatec.fundatecheroesti21.login.data.LoginResponse
 import br.com.fundatec.fundatecheroesti21.login.data.UserRequest
@@ -20,6 +21,8 @@ class LoginRepository {
         RetrofitNetworkClient
             .createNetworkClient()
             .create(LoginService::class.java)
+
+
 
     suspend fun login(email: String, password: String): Boolean {
         return withContext(Dispatchers.IO) {

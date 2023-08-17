@@ -18,4 +18,7 @@ interface UserDao {
 
     @Query("DELETE from userTable")
     fun clearCache()
+
+    @Query("SELECT id from userTable")
+    fun getId(): Int
 }
