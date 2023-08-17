@@ -3,11 +3,12 @@ package br.com.fundatec.fundatecheroesti21.characterRegister.view
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import br.com.fundatec.fundatecheroesti21.character.data.local.CharacterModel
 import br.com.fundatec.fundatecheroesti21.characterRegister.domain.CharacterRegisterModel
 import br.com.fundatec.fundatecheroesti21.databinding.CharacterListItemBinding
 
 class CharacterListAdapter : RecyclerView.Adapter<CharacterViewHolder>() {
-    private val list: MutableList<CharacterRegisterModel> = mutableListOf()
+    private val list: MutableList<CharacterModel> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val binding =
@@ -23,7 +24,7 @@ class CharacterListAdapter : RecyclerView.Adapter<CharacterViewHolder>() {
         holder.bind(list[position])
     }
 
-    fun add(items: List<CharacterRegisterModel>) {
+    fun add(items: List<CharacterModel>) {
         list.addAll(items)
         notifyDataSetChanged()
     }
