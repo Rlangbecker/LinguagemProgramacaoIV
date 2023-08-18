@@ -19,6 +19,6 @@ interface CharacterService {
     ):Response<ResponseBody>
 
     @GET("/api/character/{idUser}")
-    fun getCharacter(@Path("idUser") idUser: Int): Response<List<CharacterResponse>>
+    suspend fun getCharacter(@Path("idUser") idUser: Int): Response<List<CharacterResponse>>
 
 }
