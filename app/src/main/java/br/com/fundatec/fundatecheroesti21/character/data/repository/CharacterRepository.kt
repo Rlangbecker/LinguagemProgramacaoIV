@@ -71,7 +71,7 @@ class CharacterRepository {
         )
     }
 
-    fun List<CharacterResponse>.convertToModelList(): List<CharacterModel> {
+    private fun List<CharacterResponse>.convertToModelList(): List<CharacterModel> {
         return map { it.characterResponseToModel() }
     }
 
@@ -87,5 +87,15 @@ class CharacterRepository {
         }
     }
 
+
+    private fun mapCharacterModelToCharacterRegisterModel(characterModel: CharacterModel): CharacterRegisterModel {
+        return CharacterRegisterModel(
+            name = characterModel.name
+        )
+    }
+
+    fun mapCharacterModelListToCharacterRegisterModelList(characterModelList: List<CharacterModel>): List<CharacterRegisterModel> {
+        return characterModelList.map { mapCharacterModelToCharacterRegisterModel(it) }
+    }
 }
 

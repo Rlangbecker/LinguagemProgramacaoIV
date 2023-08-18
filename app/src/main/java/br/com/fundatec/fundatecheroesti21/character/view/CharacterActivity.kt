@@ -1,46 +1,60 @@
 package br.com.fundatec.fundatecheroesti21.character.view
 
+import CharacterViewModel
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import br.com.fundatec.core.hide
 import br.com.fundatec.core.show
 import br.com.fundatec.fundatecheroesti21.R
-import br.com.fundatec.fundatecheroesti21.character.presentation.CharacterViewModel
 import br.com.fundatec.fundatecheroesti21.character.presentation.model.CharacterViewState
 import br.com.fundatec.fundatecheroesti21.databinding.ActivityCharcaterBinding
 import br.com.fundatec.fundatecheroesti21.home.view.HomeActivity
 import com.google.android.material.snackbar.Snackbar
 
-
-class CharcaterActivity : AppCompatActivity() {
+class CharacterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCharcaterBinding
+    private val viewModel: CharacterViewModel by viewModels()
 
-    private val viewModel: CharacterViewModel by viewModels();
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCharcaterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initializeObserver()
-
-        validateData()
+        setupButtonClicks()
     }
 
     private fun initializeObserver() {
         viewModel.state.observe(this) { viewState ->
             when (viewState) {
-                CharacterViewState.ShowHomeScreen -> showHome()
-                CharacterViewState.ShowLoading -> showLoading()
-                CharacterViewState.ShowNameError -> showNameError()
-                CharacterViewState.ShowMessageError -> showSnackError()
-                CharacterViewState.ShowDescriptionError -> showDescriptionError()
-                CharacterViewState.ShowAgeError -> showAgeError()
-                CharacterViewState.ShowBirthDateError -> showBirthDateError()
+                is CharacterViewState.ShowLoading -> showLoading()
+                is CharacterViewState.Success -> navigateNewCharacter()
+                is CharacterViewState.ShowHomeScreen -> showHome()
+                else -> {
+                    Toast.makeText(this, "Erro desconhecido!", Toast.LENGTH_SHORT).show()
+                }
             }
         }
+    }
+
+    private fun setupButtonClicks() {
+        binding.floatingButton.setOnClickListener {
+            val name = binding.characterName.text.toString()
+            val description = binding.characterDescription.text.toString()
+            val age = binding.characterAge.text.toString()
+            val birthday = binding.characterBirthday.text.toString()
+
+            viewModel.createCharacter(name, description, age, birthday)
+        }
+    }
+
+    private fun navigateNewCharacter() {
+        val intent = Intent(this@CharacterActivity, HomeActivity::class.java)
+        startActivity(intent)
     }
 
     private fun showLoading() {
@@ -49,16 +63,17 @@ class CharcaterActivity : AppCompatActivity() {
 
     private fun showAgeError() {
         binding.pbLoading.hide()
-        binding.age.error = getString(R.string.register_age_error_message)
+        binding.characterAge.error = getString(R.string.register_age_error_message)
     }
+
     private fun showBirthDateError() {
         binding.pbLoading.hide()
-        binding.date.error = getString(R.string.register_birthdate_error_message)
+        binding.characterBirthday.error = getString(R.string.register_birthdate_error_message)
     }
 
     private fun showNameError() {
         binding.pbLoading.hide()
-        binding.nameHero.error = getString(R.string.register_name_error_message)
+        binding.characterName.error = getString(R.string.register_name_error_message)
     }
 
     private fun showHome() {
@@ -73,18 +88,6 @@ class CharcaterActivity : AppCompatActivity() {
 
     private fun showDescriptionError() {
         binding.pbLoading.hide()
-        binding.description.error = getString(R.string.register_description_error_message)
+        binding.characterDescription.error = getString(R.string.register_description_error_message)
     }
-
-    private fun validateData(){
-        binding.floatingButton.setOnClickListener {
-            viewModel.validateInputs(
-                name = binding.nameHero.text.toString(),
-                description = binding.description.text.toString(),
-                age = binding.age.text.toString(),
-                birth_date = binding.date.text.toString()
-            )
-        }
-    }
-
 }

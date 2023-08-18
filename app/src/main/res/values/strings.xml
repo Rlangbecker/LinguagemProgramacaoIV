@@ -1,11 +1,10 @@
 <resources>
-    <string-array name="heroes">
-        <item>Selecione</item>
-        <item>Herói</item>
-        <item>Vilão</item>
+    <string-array name="hero_types">
+        <item>Hero</item>
+        <item>Villain</item>
     </string-array>
-    <string-array name="universe">
-        <item>Selecione</item>
+
+    <string-array name="company_types">
         <item>Marvel</item>
         <item>DC</item>
     </string-array>
@@ -32,6 +31,7 @@
     <string name="register_pdw_error_message">Senha inválida</string>
     <string name="home">Home</string>
     <string name="register_user_succes">Usuário criado com sucesso!</string>
+    <string name="image_url">Usuário criado com sucesso!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="register">Register</string>
@@ -42,5 +42,8 @@
     <string name="insira_a_url_da_imagem">Insira a URL da imagem</string>
     <string name="adicione">Adicione</string>
     <string name="new_character">New Character</string>
+    <string name="birthday">bday\n</string>
+    <string name="age">age</string>
+    <string name="description">description</string>
 </resources>
 

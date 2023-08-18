@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun initializeObserver() {
+        private fun initializeObserver() {
         viewModel.state.observe(this) { viewState ->
             when (viewState) {
                 LoginViewState.ShowHomeScreen -> showHome()
