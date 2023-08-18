@@ -13,10 +13,8 @@ import java.util.*
 
 interface CharacterService {
 
-    @POST("/api/character/{idUser}")
-    suspend fun createCharacter(
-        @Body characterRequest: CharacterRequest
-    ):Response<ResponseBody>
+    @POST("/api/character/1")
+    suspend fun createCharacter(@Body characterRequest: CharacterRequest): Response<ResponseBody>
 
     @GET("/api/character/{idUser}")
     fun getCharacter(@Path("idUser") idUser: Int): Response<List<CharacterResponse>>

@@ -2,9 +2,11 @@ package br.com.fundatec.fundatecheroesti21.character.view
 
 import CharacterViewModel
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import br.com.fundatec.core.hide
 import br.com.fundatec.core.show
@@ -19,6 +21,7 @@ class CharacterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCharcaterBinding
     private val viewModel: CharacterViewModel by viewModels()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCharcaterBinding.inflate(layoutInflater)
@@ -41,6 +44,7 @@ class CharacterActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setupButtonClicks() {
         binding.floatingButton.setOnClickListener {
             val name = binding.characterName.text.toString()
@@ -90,4 +94,6 @@ class CharacterActivity : AppCompatActivity() {
         binding.pbLoading.hide()
         binding.characterDescription.error = getString(R.string.register_description_error_message)
     }
+
+
 }

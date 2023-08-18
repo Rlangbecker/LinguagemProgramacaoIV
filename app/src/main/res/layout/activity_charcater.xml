@@ -26,7 +26,7 @@
                 android:layout_marginHorizontal="40dp"
                 android:hint="@string/name"
                 android:imeOptions="actionNext"
-                android:inputType="textPersonName" />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Description Field -->

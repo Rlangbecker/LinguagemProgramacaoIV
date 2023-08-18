@@ -36,6 +36,7 @@ class CharacterRepository {
             try {
                 val response = client.createCharacter(
                     CharacterRequest(
+                        0,
                         name,
                         description,
                         image,
