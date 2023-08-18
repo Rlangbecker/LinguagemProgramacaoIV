@@ -8,6 +8,7 @@ import br.com.fundatec.fundatecheroesti21.character.data.CharacterRequest
 import br.com.fundatec.fundatecheroesti21.character.data.repository.CharacterRepository
 import br.com.fundatec.fundatecheroesti21.character.presentation.model.CharacterViewState
 import kotlinx.coroutines.launch
+import java.util.*
 import java.util.regex.Pattern
 
 class CharacterRegisterViewModel : ViewModel() {
@@ -81,8 +82,8 @@ class CharacterRegisterViewModel : ViewModel() {
                     name = name ?: "",
                     description = description ?: "",
                     image = image ?: "",
-                    universeType = universeType ?:"",
-                    characterType = characterType ?:"",
+                    universeType = universeType.toString().uppercase() ?:"",
+                    characterType = characterType.toString().uppercase() ?:"",
                     age = age?.toIntOrNull() ?: 0,
                     birthday = birthday?: ""
                 )
