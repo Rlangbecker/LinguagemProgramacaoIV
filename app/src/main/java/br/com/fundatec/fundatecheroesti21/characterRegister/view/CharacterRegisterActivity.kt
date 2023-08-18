@@ -37,12 +37,17 @@ class CharacterRegisterActivity : AppCompatActivity() {
                 CharacterViewState.ShowDescriptionError -> showDescriptionError()
                 CharacterViewState.ShowAgeError -> showAgeError()
                 CharacterViewState.ShowBirthDateError -> showBirthDateError()
+                CharacterViewState.ShowImageError -> showImageError()
             }
         }
     }
 
     private fun showLoading() {
         binding.pbLoading.show()
+    }
+
+    private fun showImageError() {
+        binding.imgHero.error=getString(R.string.image_error_message)
     }
 
     private fun showAgeError() {
@@ -77,10 +82,14 @@ class CharacterRegisterActivity : AppCompatActivity() {
     private fun validateData(){
         binding.floatingButton.setOnClickListener {
             viewModel.validateInputs(
+                image = binding.imgHero.text.toString(),
                 name = binding.nameHero.text.toString(),
                 description = binding.description.text.toString(),
+                universeType = binding.selectCompany.selectedItem.toString(),
+                characterType = binding.selectHero.selectedItem.toString(),
                 age = binding.age.text.toString(),
                 birth_date = binding.date.text.toString()
+
             )
         }
     }

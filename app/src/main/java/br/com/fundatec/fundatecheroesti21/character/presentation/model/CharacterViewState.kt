@@ -8,4 +8,5 @@ sealed class CharacterViewState {
     object ShowMessageError : CharacterViewState()
     object ShowAgeError : CharacterViewState()
     object ShowBirthDateError : CharacterViewState()
+    object ShowImageError : CharacterViewState()
 }

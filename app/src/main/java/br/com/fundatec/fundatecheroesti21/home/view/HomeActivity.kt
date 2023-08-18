@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import br.com.fundatec.core.show
 import br.com.fundatec.fundatecheroesti21.character.data.local.CharacterModel
 import br.com.fundatec.fundatecheroesti21.characterRegister.view.CharacterListAdapter
 import br.com.fundatec.fundatecheroesti21.characterRegister.view.CharacterRegisterActivity
@@ -26,9 +27,13 @@ class HomeActivity : AppCompatActivity() {
 
         binding.rvList.adapter = characterListAdapter
 
-        viewModel.listCharacter()
         initializeObserver()
         navigateNewCharacter()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.listCharacter()
     }
 
     private fun initializeObserver() {
@@ -50,7 +55,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun showLoading() {
-
+        binding.pbLoading.show()
     }
 
 

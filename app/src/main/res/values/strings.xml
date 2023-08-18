@@ -30,6 +30,7 @@
     <string name="register_description_error_message">Descrição inválida, não pode estar vazia!</string>
     <string name="register_email_error_message">E-mail inválido</string>
     <string name="register_pdw_error_message">Senha inválida</string>
+    <string name="image_error_message">Precisa ter URL para imagem</string>
     <string name="home">Home</string>
     <string name="register_user_succes">Usuário criado com sucesso!</string>
     <!-- TODO: Remove or change this placeholder text -->

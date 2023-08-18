@@ -15,8 +15,8 @@ class CharacterRegisterViewModel : ViewModel() {
     private val viewState = MutableLiveData<CharacterViewState>()
     private val repository by lazy { CharacterRepository() }
     val state: LiveData<CharacterViewState> = viewState
-    fun validateInputs(name: String?, description: String?, age: String?, birth_date: String?) {
-        var patternAge = Pattern.compile("[0-9]")
+    fun validateInputs(name: String?, description: String?,image : String?,universeType : String?,characterType:String?, age: String?, birth_date: String?) {
+        var patternAge = Pattern.compile("^(0|[1-9][0-9]*)\$")
         var matcherAge = patternAge.matcher(age)
 
         var patternBirthDate = Pattern.compile("\\d{2}[-\\/\\.]\\d{2}[-\\/\\.]\\d{4}|\\d{8}")
@@ -59,18 +59,30 @@ class CharacterRegisterViewModel : ViewModel() {
             return
         }
 
-        createCharacter(name, description, age, birth_date)
+        if(image.isNullOrBlank()){
+            viewState.value = CharacterViewState.ShowImageError
+        }
+
+        if(universeType.isNullOrBlank()){
+            viewState.value = CharacterViewState.ShowMessageError
+        }
+
+        if(characterType.isNullOrBlank()){
+            viewState.value = CharacterViewState.ShowMessageError
+        }
+
+        createCharacter(name, description,image,universeType,characterType, age, birth_date)
     }
 
-    fun createCharacter(name: String?, description: String?, age: String?, birthday: String?) {
+    fun createCharacter(name: String?, description: String?,image: String?,universeType : String?,characterType:String?, age: String?, birthday: String?) {
         viewModelScope.launch {
             try {
                 val character = CharacterRequest(
                     name = name ?: "",
                     description = description ?: "",
-                    image = "",
-                    universeType = "MARVEL",
-                    characterType = "HERO",
+                    image = image ?: "",
+                    universeType = universeType ?:"",
+                    characterType = characterType ?:"",
                     age = age?.toIntOrNull() ?: 0,
                     birthday = birthday?: ""
                 )
