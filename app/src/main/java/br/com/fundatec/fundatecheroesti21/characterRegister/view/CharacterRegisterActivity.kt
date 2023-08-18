@@ -1,27 +1,25 @@
-package br.com.fundatec.fundatecheroesti21.character.view
+package br.com.fundatec.fundatecheroesti21.characterRegister.view
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import br.com.fundatec.core.hide
 import br.com.fundatec.core.show
 import br.com.fundatec.fundatecheroesti21.R
-import br.com.fundatec.fundatecheroesti21.character.presentation.CharacterViewModel
+import br.com.fundatec.fundatecheroesti21.characterRegister.presentation.CharacterRegisterViewModel
 import br.com.fundatec.fundatecheroesti21.character.presentation.model.CharacterViewState
-import br.com.fundatec.fundatecheroesti21.databinding.ActivityCharcaterBinding
-import br.com.fundatec.fundatecheroesti21.home.view.HomeActivity
+import br.com.fundatec.fundatecheroesti21.databinding.ActivityCharacterRegisterBinding
 import com.google.android.material.snackbar.Snackbar
 
 
-class CharcaterActivity : AppCompatActivity() {
+class CharacterRegisterActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityCharcaterBinding
+    private lateinit var binding: ActivityCharacterRegisterBinding
 
-    private val viewModel: CharacterViewModel by viewModels();
+    private val viewModel: CharacterRegisterViewModel by viewModels();
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCharcaterBinding.inflate(layoutInflater)
+        binding = ActivityCharacterRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initializeObserver()

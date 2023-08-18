@@ -4,7 +4,7 @@ import com.squareup.moshi.JsonClass
 import java.util.Date
 
 @JsonClass(generateAdapter = true)
-data class CharacterResponse (
+data class CharacterResponse(
     val id: Int,
     val name: String,
     val description: String,
@@ -13,4 +13,4 @@ data class CharacterResponse (
     val characterType: String,
     val age: Int,
     val birthday: Date
-    )
+)

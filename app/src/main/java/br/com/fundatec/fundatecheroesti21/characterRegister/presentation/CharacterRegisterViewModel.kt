@@ -1,15 +1,19 @@
-package br.com.fundatec.fundatecheroesti21.character.presentation
+package br.com.fundatec.fundatecheroesti21.characterRegister.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import br.com.fundatec.fundatecheroesti21.character.data.CharacterRequest
+import br.com.fundatec.fundatecheroesti21.character.data.repository.CharacterRepository
 import br.com.fundatec.fundatecheroesti21.character.presentation.model.CharacterViewState
-import java.time.LocalDate
+import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
-class CharacterViewModel : ViewModel() {
+class CharacterRegisterViewModel : ViewModel() {
 
     private val viewState = MutableLiveData<CharacterViewState>()
+    private val repository by lazy { CharacterRepository() }
     val state: LiveData<CharacterViewState> = viewState
     fun validateInputs(name: String?, description: String?, age: String?, birth_date: String?) {
         var patternAge = Pattern.compile("[0-9]")
@@ -55,10 +59,31 @@ class CharacterViewModel : ViewModel() {
             return
         }
 
-        fetchLogin(name, description, age, birth_date)
+        createCharacter(name, description, age, birth_date)
     }
 
-    private fun fetchLogin(name: String, description: String, age: String, birth_date: String) {
-        viewState.value = CharacterViewState.ShowHomeScreen
+    fun createCharacter(name: String?, description: String?, age: String?, birthday: String?) {
+        viewModelScope.launch {
+            try {
+                val character = CharacterRequest(
+                    name = name ?: "",
+                    description = description ?: "",
+                    image = "",
+                    universeType = "MARVEL",
+                    characterType = "HERO",
+                    age = age?.toIntOrNull() ?: 0,
+                    birthday = birthday?: ""
+                )
+                val response = repository.createCharacter(character)
+
+                if (response) {
+                    viewState.value = CharacterViewState.ShowHomeScreen
+                } else {
+                    viewState.value = CharacterViewState.ShowMessageError
+                }
+            } catch (e: Exception) {
+                viewState.value = CharacterViewState.ShowMessageError
+            }
+        }
     }
 }

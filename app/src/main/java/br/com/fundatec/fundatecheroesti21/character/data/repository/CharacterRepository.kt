@@ -25,24 +25,20 @@ class CharacterRepository {
 
 
     suspend fun createCharacter(
-        name: String,
-        description: String,
-        image: String, universeType: String,
-        characterType: String,
-        age: Int,
-        birthday: Date
+        characterRequest: CharacterRequest
     ): Boolean {
         return withContext(Dispatchers.IO) {
             try {
                 val response = client.createCharacter(
+                    database.userDao().getId(),
                     CharacterRequest(
-                        name,
-                        description,
-                        image,
-                        universeType,
-                        characterType,
-                        age,
-                        birthday
+                        characterRequest.name,
+                        characterRequest.description,
+                        characterRequest.image,
+                        characterRequest.universeType,
+                        characterRequest.characterType,
+                        characterRequest.age,
+                        characterRequest.birthday
                     )
                 )
                 response.isSuccessful
@@ -53,38 +49,29 @@ class CharacterRepository {
         }
     }
 
-    private fun CharacterResponse.characterResponseToEntity(): CharacterEntity {
-        return CharacterEntity(
-            name = name,
-            description = description,
-            image = image,
-            universeType = universeType,
-            characterType = characterType,
-            age = age,
-            birthday = birthday
-        )
+    suspend fun getCharacters(): List<CharacterModel> {
+        return withContext(Dispatchers.IO) {
+            Log.e("Log" , database.userDao().getId().toString())
+            val response: Response<List<CharacterResponse>> =
+                client.getCharacter(database.userDao().getId())
+
+            if (response.isSuccessful) {
+                val characterResponseList: List<CharacterResponse> = response.body() ?: emptyList()
+                characterResponseList.convertToModelList()
+            } else {
+                emptyList()
+            }
+        }
+    }
+
+    private fun List<CharacterResponse>.convertToModelList(): List<CharacterModel> {
+        return map { it.characterResponseToModel() }
     }
 
     private fun CharacterResponse.characterResponseToModel(): CharacterModel {
         return CharacterModel(
             name = name, image = image
         )
-    }
-
-    fun List<CharacterResponse>.convertToModelList(): List<CharacterModel> {
-        return map { it.characterResponseToModel() }
-    }
-
-    fun getCharacters(): List<CharacterModel> {
-        val response: Response<List<CharacterResponse>> =
-            client.getCharacter(database.userDao().getId())
-
-        if (response.isSuccessful) {
-            val characterResponseList: List<CharacterResponse> = response.body() ?: emptyList()
-            return characterResponseList.convertToModelList()
-        } else {
-            return emptyList()
-        }
     }
 
 }

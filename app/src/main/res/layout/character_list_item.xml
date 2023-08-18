@@ -23,11 +23,9 @@
             android:id="@+id/cardview"
             android:layout_width="167dp"
             android:layout_height="279dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="10dp"
+            app:cardBackgroundColor="#C3C3C3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="#CCC7C7"
             app:cardCornerRadius="12dp">
 
             <ImageView
