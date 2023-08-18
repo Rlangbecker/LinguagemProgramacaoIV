@@ -16,11 +16,11 @@ class HomeViewModel : ViewModel() {
     val state: LiveData<HomeViewState> = viewState
 
     fun listCharacter() {
-        viewState.value = HomeViewState.ShowLoading
         viewModelScope.launch {
-         val list = useCase.getCharacters()
+            viewState.value = HomeViewState.ShowLoading
+            val list = useCase.getCharacters()
 
-            if(list.isEmpty()){
+            if (list.isEmpty()) {
                 viewState.value = HomeViewState.ShowEmptyList
             } else {
                 viewState.value = HomeViewState.ShowHomeScreen(list)

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import br.com.fundatec.core.hide
 import br.com.fundatec.core.show
 import br.com.fundatec.fundatecheroesti21.character.data.local.CharacterModel
 import br.com.fundatec.fundatecheroesti21.characterRegister.view.CharacterListAdapter
@@ -47,11 +48,12 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun showHomeScreen(list: List<CharacterModel>) {
+        binding.pbLoading.hide()
         characterListAdapter.add(list)
     }
 
     fun showEmptyList() {
-
+        binding.pbLoading.hide()
     }
 
     fun showLoading() {
