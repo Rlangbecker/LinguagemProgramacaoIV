@@ -1,4 +1,4 @@
-package br.com.fundatec.fundatecheroesti21.splashScreen.view
+package br.com.fundatec.fundatecheroesti21.splash.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,10 +7,10 @@ import androidx.activity.viewModels
 import br.com.fundatec.fundatecheroesti21.R
 import br.com.fundatec.fundatecheroesti21.home.view.HomeActivity
 import br.com.fundatec.fundatecheroesti21.login.view.LoginActivity
-import br.com.fundatec.fundatecheroesti21.splashScreen.model.SplashScreenViewState
-import br.com.fundatec.fundatecheroesti21.splashScreen.presentation.SplashScreenViewModel
+import br.com.fundatec.fundatecheroesti21.splash.model.SplashScreenViewState
+import br.com.fundatec.fundatecheroesti21.splash.presentation.SplashScreenViewModel
 
-class SplashScreenActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity() {
 
 
     private val viewModel: SplashScreenViewModel by viewModels()
@@ -27,12 +27,12 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun showHome() {
-        startActivity(Intent(this@SplashScreenActivity, HomeActivity::class.java))
+        startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
         finish()
     }
 
     private fun showLogin() {
-        startActivity(Intent(this@SplashScreenActivity, LoginActivity::class.java))
+        startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
         finish()
     }
 }

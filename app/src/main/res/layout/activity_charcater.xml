@@ -1,171 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".character.view.CharacterActivity">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_login"
-        tools:context=".character.view.CharacterActivity">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <!-- Name Field -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ti_characterName"
+        <EditText
+            android:id="@+id/nameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="96dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:hint="Name"
+            android:inputType="text" />
 
-            <EditText
-                android:id="@+id/characterName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40dp"
-                android:hint="@string/name"
-                android:imeOptions="actionNext"
-                android:inputType="textPersonName" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Description Field -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ti_characterDescription"
+        <EditText
+            android:id="@+id/descriptionEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ti_characterName">
+            android:hint="Description"
+            android:inputType="text" />
 
-            <EditText
-                android:id="@+id/characterDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40dp"
-                android:hint="@string/description"
-                android:imeOptions="actionNext"
-                android:inputType="textMultiLine" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Age Field -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ti_characterAge"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ti_characterDescription">
-
-            <EditText
-                android:id="@+id/characterAge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40dp"
-                android:hint="@string/age"
-                android:imeOptions="actionNext"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Birthday Field -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ti_characterBirthday"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ti_characterDescription">
-
-            <EditText
-                android:id="@+id/characterBirthday"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40dp"
-                android:hint="@string/birthday"
-                android:imeOptions="actionNext"
-                android:inputType="date" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Select Hero Field -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ti_select_hero"
-            android:layout_width="220dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="18dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ti_characterBirthday"
-            app:layout_constraintVertical_chainStyle="packed">
-
-            <Spinner
-                android:id="@+id/select_hero"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@color/grey"
-                android:layout_marginHorizontal="40dp"
-                android:entries="@array/hero_types" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ti_select_company"
-            android:layout_width="220dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="18dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ti_characterBirthday"
-            app:layout_constraintVertical_chainStyle="packed">
-
-            <Spinner
-                android:id="@+id/select_company"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@color/grey"
-                android:layout_marginHorizontal="40dp"
-                android:entries="@array/company_types" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Image URL Field -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ti_characterImage"
+        <EditText
+            android:id="@+id/imageEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ti_select_company">
+            android:hint="Image URL"
+            android:inputType="textUri" />
 
-            <EditText
-                android:id="@+id/characterImage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40dp"
-                android:hint="@string/image_url"
-                android:imeOptions="actionDone"
-                android:inputType="textUri" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Submit Button -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floating_button"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/universeTypeEditText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:backgroundTint="@color/amayellow"
-            android:foreground="@drawable/superhero"
-            android:importantForAccessibility="no"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ti_characterImage" />
+            android:hint="Universe Type (e.g. MARVEL)"
+            android:inputType="text" />
 
-        <!-- ProgressBar -->
-        <ProgressBar
-            android:id="@+id/pb_loading"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/characterTypeEditText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:hint="Character Type (e.g. HERO)"
+            android:inputType="text" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+        <EditText
+            android:id="@+id/ageEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Age"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/birthdayEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Birthday (e.g. 1994-03-07T28:14:45)"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/postButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Post Character" />
+    </LinearLayout>
+</ScrollView>

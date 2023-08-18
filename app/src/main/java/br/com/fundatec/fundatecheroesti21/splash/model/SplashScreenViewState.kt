@@ -1,4 +1,4 @@
-package br.com.fundatec.fundatecheroesti21.splashScreen.model
+package br.com.fundatec.fundatecheroesti21.splash.model
 
 sealed class SplashScreenViewState {
     object ShowHome : SplashScreenViewState()

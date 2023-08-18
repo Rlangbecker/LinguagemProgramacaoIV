@@ -1,4 +1,4 @@
-package br.com.fundatec.fundatecheroesti21.splashScreen.domain
+package br.com.fundatec.fundatecheroesti21.splash.domain
 
 import br.com.fundatec.fundatecheroesti21.login.data.repository.LoginRepository
 import java.util.*

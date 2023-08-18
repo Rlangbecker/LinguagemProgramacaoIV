@@ -3,15 +3,12 @@ package br.com.fundatec.fundatecheroesti21.character.data.repository
 import android.util.Log
 import br.com.fundatec.fundatecheroesti21.character.data.CharacterRequest
 import br.com.fundatec.fundatecheroesti21.character.data.CharacterResponse
-import br.com.fundatec.fundatecheroesti21.character.data.local.CharacterEntity
 import br.com.fundatec.fundatecheroesti21.character.data.local.CharacterModel
-import br.com.fundatec.fundatecheroesti21.characterRegister.domain.CharacterRegisterModel
 import br.com.fundatec.fundatecheroesti21.database.FHDatabase
 import br.com.fundatec.fundatecheroesti21.network.RetrofitNetworkClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
-import java.util.*
 
 class CharacterRepository {
 
@@ -23,26 +20,21 @@ class CharacterRepository {
         .createNetworkClient()
         .create(CharacterService::class.java)
 
-
     suspend fun createCharacter(
-        name: String,
-        description: String,
-        image: String, universeType: String,
-        characterType: String,
-        age: Int,
-        birthday: Date
+        characterRequest: CharacterRequest
     ): Boolean {
         return withContext(Dispatchers.IO) {
             try {
                 val response = client.createCharacter(
+                    database.userDao().getId(),
                     CharacterRequest(
-                        name,
-                        description,
-                        image,
-                        universeType,
-                        characterType,
-                        age,
-                        birthday
+                        characterRequest.name,
+                        characterRequest.description,
+                        characterRequest.image,
+                        characterRequest.universeType,
+                        characterRequest.characterType,
+                        characterRequest.age,
+                        characterRequest.birthday
                     )
                 )
                 response.isSuccessful
@@ -53,18 +45,18 @@ class CharacterRepository {
         }
     }
 
-    private fun CharacterResponse.characterResponseToEntity(): CharacterEntity {
-        return CharacterEntity(
-            name = name,
-            description = description,
-            image = image,
-            universeType = universeType,
-            characterType = characterType,
-            age = age,
-            birthday = birthday
-        )
-    }
-
+    //    private fun CharacterResponse.characterResponseToEntity(): CharacterEntity {
+//        return CharacterEntity(
+//            name = name,
+//            description = description,
+//            image = image,
+//            universeType = universeType,
+//            characterType = characterType,
+//            age = age,
+//            birthday = birthday
+//        )
+//    }
+//
     private fun CharacterResponse.characterResponseToModel(): CharacterModel {
         return CharacterModel(
             name = name, image = image
@@ -79,23 +71,23 @@ class CharacterRepository {
         val response: Response<List<CharacterResponse>> =
             client.getCharacter(database.userDao().getId())
 
-        if (response.isSuccessful) {
+        return if (response.isSuccessful) {
             val characterResponseList: List<CharacterResponse> = response.body() ?: emptyList()
-            return characterResponseList.convertToModelList()
+            characterResponseList.convertToModelList()
         } else {
-            return emptyList()
+            emptyList()
         }
     }
-
-
-    private fun mapCharacterModelToCharacterRegisterModel(characterModel: CharacterModel): CharacterRegisterModel {
-        return CharacterRegisterModel(
-            name = characterModel.name
-        )
-    }
-
-    fun mapCharacterModelListToCharacterRegisterModelList(characterModelList: List<CharacterModel>): List<CharacterRegisterModel> {
-        return characterModelList.map { mapCharacterModelToCharacterRegisterModel(it) }
-    }
+//
+//
+//    private fun mapCharacterModelToCharacterRegisterModel(characterModel: CharacterModel): CharacterRegisterModel {
+//        return CharacterRegisterModel(
+//            name = characterModel.name
+//        )
+//    }
+//
+//    fun mapCharacterModelListToCharacterRegisterModelList(characterModelList: List<CharacterModel>): List<CharacterRegisterModel> {
+//        return characterModelList.map { mapCharacterModelToCharacterRegisterModel(it) }
+//    }
 }
-
+//

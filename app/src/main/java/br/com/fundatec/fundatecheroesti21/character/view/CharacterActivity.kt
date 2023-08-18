@@ -1,93 +1,81 @@
 package br.com.fundatec.fundatecheroesti21.character.view
 
-import CharacterViewModel
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.widget.Button
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import br.com.fundatec.core.hide
-import br.com.fundatec.core.show
 import br.com.fundatec.fundatecheroesti21.R
-import br.com.fundatec.fundatecheroesti21.character.presentation.model.CharacterViewState
+import br.com.fundatec.fundatecheroesti21.character.presentation.CharacterViewModel
 import br.com.fundatec.fundatecheroesti21.databinding.ActivityCharcaterBinding
-import br.com.fundatec.fundatecheroesti21.home.view.HomeActivity
-import com.google.android.material.snackbar.Snackbar
 
 class CharacterActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityCharcaterBinding
     private val viewModel: CharacterViewModel by viewModels()
+    private lateinit var binding: ActivityCharcaterBinding
+    private lateinit var nameEditText: EditText
+    private lateinit var descriptionEditText: EditText
+    private lateinit var imageEditText: EditText
+    private lateinit var universeTypeEditText: EditText
+    private lateinit var characterTypeEditText: EditText
+    private lateinit var ageEditText: EditText
+    private lateinit var birthdayEditText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCharcaterBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_charcater)
 
-        initializeObserver()
-        setupButtonClicks()
-    }
+        nameEditText = findViewById(R.id.nameEditText)
+        descriptionEditText = findViewById(R.id.descriptionEditText)
+        imageEditText = findViewById(R.id.imageEditText)
+        universeTypeEditText = findViewById(R.id.universeTypeEditText)
+        characterTypeEditText = findViewById(R.id.characterTypeEditText)
+        ageEditText = findViewById(R.id.ageEditText)
+        birthdayEditText = findViewById(R.id.birthdayEditText)
 
-    private fun initializeObserver() {
-        viewModel.state.observe(this) { viewState ->
-            when (viewState) {
-                is CharacterViewState.ShowLoading -> showLoading()
-                is CharacterViewState.Success -> navigateNewCharacter()
-                is CharacterViewState.ShowHomeScreen -> showHome()
-                else -> {
-                    Toast.makeText(this, "Erro desconhecido!", Toast.LENGTH_SHORT).show()
-                }
-            }
+        val postButton: Button = findViewById(R.id.postButton)
+        postButton.setOnClickListener {
+            postCharacter()
         }
     }
 
-    private fun setupButtonClicks() {
-        binding.floatingButton.setOnClickListener {
-            val name = binding.characterName.text.toString()
-            val description = binding.characterDescription.text.toString()
-            val age = binding.characterAge.text.toString()
-            val birthday = binding.characterBirthday.text.toString()
+    private fun postCharacter() {
+        binding.postButton.setOnClickListener {
+            val name = binding.nameEditText.text.toString()
+            val description = binding.descriptionEditText.text.toString()
+            val image = binding.imageEditText.text.toString()
+            val universe = binding.universeTypeEditText.text.toString()
+            val type = binding.characterTypeEditText.text.toString()
+            val age = binding.ageEditText.text.toString()
+            val birthday = binding.birthdayEditText.text.toString()
 
-            viewModel.createCharacter(name, description, age, birthday)
+            viewModel.createCharacter(name, description, image, universe, type ,age, birthday)
         }
     }
 
-    private fun navigateNewCharacter() {
-        val intent = Intent(this@CharacterActivity, HomeActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun showLoading() {
-        binding.pbLoading.show()
-    }
-
-    private fun showAgeError() {
-        binding.pbLoading.hide()
-        binding.characterAge.error = getString(R.string.register_age_error_message)
-    }
-
-    private fun showBirthDateError() {
-        binding.pbLoading.hide()
-        binding.characterBirthday.error = getString(R.string.register_birthdate_error_message)
-    }
-
-    private fun showNameError() {
-        binding.pbLoading.hide()
-        binding.characterName.error = getString(R.string.register_name_error_message)
-    }
-
-    private fun showHome() {
-        binding.pbLoading.hide()
-        finish()
-    }
-
-    private fun showSnackError() {
-        binding.pbLoading.hide()
-        Snackbar.make(binding.root, R.string.login_error2_message, Snackbar.LENGTH_LONG).show()
-    }
-
-    private fun showDescriptionError() {
-        binding.pbLoading.hide()
-        binding.characterDescription.error = getString(R.string.register_description_error_message)
-    }
+//    private fun postCharacter() {
+//        val characterResponse = CharacterRequest(
+//            name = nameEditText.text.toString(),
+//            description = descriptionEditText.text.toString(),
+//            image = imageEditText.text.toString(),
+//            universeType = universeTypeEditText.text.toString(),
+//            characterType = characterTypeEditText.text.toString(),
+//            age = ageEditText.text.toString().toInt(),
+//            birthday = birthdayEditText.text.toString()
+//        )
+//
+//        RetrofitNetworkClient.instance.getCharacter(characterResponse).enqueue(object :
+//            Callback<CharacterResponse> {
+//            override fun onResponse(call: Response<CharacterResponse>, response: Response<CharacterResponse>) {
+//                if (response.isSuccessful) {
+//                    Log.d("Success", "CharacterResponse created!")
+//                } else {
+//                    Log.e("Error", "Failed to create character.")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<CharacterResponse>, t: Throwable) {
+//                Log.e("Failure", t.message ?: "Unknown error")
+//            }
+//        })
+//    }
 }

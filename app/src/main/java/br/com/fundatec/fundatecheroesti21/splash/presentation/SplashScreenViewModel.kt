@@ -1,11 +1,11 @@
-package br.com.fundatec.fundatecheroesti21.splashScreen.presentation
+package br.com.fundatec.fundatecheroesti21.splash.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.fundatec.fundatecheroesti21.splashScreen.domain.IsValidCacheUseCase
-import br.com.fundatec.fundatecheroesti21.splashScreen.model.SplashScreenViewState
+import br.com.fundatec.fundatecheroesti21.splash.domain.IsValidCacheUseCase
+import br.com.fundatec.fundatecheroesti21.splash.model.SplashScreenViewState
 import kotlinx.coroutines.launch
 
 class SplashScreenViewModel : ViewModel(){
