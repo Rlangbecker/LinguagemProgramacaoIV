@@ -1,6 +1,13 @@
 package br.com.fundatec.fundatecheroesti21.characterRegister.view
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.AsyncTask
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
+import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import br.com.fundatec.core.hide
@@ -10,19 +17,42 @@ import br.com.fundatec.fundatecheroesti21.characterRegister.presentation.Charact
 import br.com.fundatec.fundatecheroesti21.character.presentation.model.CharacterViewState
 import br.com.fundatec.fundatecheroesti21.databinding.ActivityCharacterRegisterBinding
 import com.google.android.material.snackbar.Snackbar
+import java.io.IOException
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 class CharacterRegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCharacterRegisterBinding
+    private lateinit var imgHeroEditText: EditText
+    private lateinit var imagePreview: ImageView
 
     private val viewModel: CharacterRegisterViewModel by viewModels();
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        actionBar?.hide()
         binding = ActivityCharacterRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initializeObserver()
+
+        imgHeroEditText = findViewById(binding.imgHero.id)
+        imagePreview = findViewById(binding.imgHeroeIv.id)
+
+        imgHeroEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                val imgUrl = s.toString()
+                if (imgUrl.isNotEmpty()) {
+                    LoadImageTask().execute(imgUrl)
+                }
+            }
+        })
 
         validateData()
     }
@@ -42,18 +72,42 @@ class CharacterRegisterActivity : AppCompatActivity() {
         }
     }
 
+    private inner class LoadImageTask : AsyncTask<String, Void, Bitmap?>() {
+        override fun doInBackground(vararg urls: String): Bitmap? {
+            val imgUrl = urls[0]
+            return try {
+                val url = URL(imgUrl)
+                val connection = url.openConnection() as HttpURLConnection
+                connection.doInput = true
+                connection.connect()
+                val input: InputStream = connection.inputStream
+                BitmapFactory.decodeStream(input)
+            } catch (e: IOException) {
+                e.printStackTrace()
+                null
+            }
+        }
+
+        override fun onPostExecute(result: Bitmap?) {
+            if (result != null) {
+                imagePreview.setImageBitmap(result)
+            }
+        }
+    }
+
     private fun showLoading() {
         binding.pbLoading.show()
     }
 
     private fun showImageError() {
-        binding.imgHero.error=getString(R.string.image_error_message)
+        binding.imgHero.error = getString(R.string.image_error_message)
     }
 
     private fun showAgeError() {
         binding.pbLoading.hide()
         binding.age.error = getString(R.string.register_age_error_message)
     }
+
     private fun showBirthDateError() {
         binding.pbLoading.hide()
         binding.date.error = getString(R.string.register_birthdate_error_message)
@@ -79,7 +133,7 @@ class CharacterRegisterActivity : AppCompatActivity() {
         binding.description.error = getString(R.string.register_description_error_message)
     }
 
-    private fun validateData(){
+    private fun validateData() {
         binding.floatingButton.setOnClickListener {
             viewModel.validateInputs(
                 image = binding.imgHero.text.toString(),
